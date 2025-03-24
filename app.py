@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, abort, redirect, session, request, url_for
 from database import engine, load_jobs_from_db, add_job, load_job_from_db,load_job_from
-from sqlalchemy import text,create_engine
+from sqlalchemy import text
 import os
 app = Flask(__name__)
 

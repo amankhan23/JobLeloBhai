@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine,text
 from flask import request,render_template
-from app import engine
 engine = create_engine("mysql+pymysql://avnadmin:AVNS_rVbb6wGYObC02zGW_CN@joblelo-joblelobhai.f.aivencloud.com:19883/defaultdb?charset=utf8mb4")
 def load_jobs_from_db():
     with engine.connect() as conn:
