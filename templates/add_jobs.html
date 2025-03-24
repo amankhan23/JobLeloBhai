@@ -1,0 +1,31 @@
+<div class="content-jobs">
+    <div class="dashboard-header">
+        <h2>Add Job</h2>
+    </div>
+    <div id="job_adding">
+        <div style="display: flex; flex-direction: column; padding: 10px; width: 70%;">
+            <form action="/add_job" method="post">
+                <label class="place">Title</label>
+                <input type="text" class="input" placeholder="Title" name="title" id="title"><br>
+                <label class="place">Location</label>
+                <input type="text" class="input" placeholder="Location" name="location" id="location"><br>
+                <label class="place">Salary</label>
+                <input type="text" class="input" placeholder="Salary" name="salary" id="salary"><br>
+                <label class="place">Currency</label>
+                <select class="input" placeholder="Currency" name="currency" id="currency"><br>
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="INR">INR - Indian Rupee</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="JPY">JPY - Japanese Yen</option>
+                    <option value="CAD">CAD - Canadian Dollar</option>
+                </select><br><br>
+                <label class="place">Responsibilities</label>
+                <textarea type="text" class="input" placeholder="Responsibilities" name="responsibilities" id="responsibilities"></textarea><br>
+                <label class="place">Requirements</label>
+                <textarea type="text" class="input" placeholder="Requirements" name="requirements" id="requirements"></textarea><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>

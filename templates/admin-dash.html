@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: white;
+            width: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 200px; /* Match sidebar width */
+            box-sizing: border-box;
+        }
+        .content-jobs {
+            flex-grow: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .dashboard-header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .dashboard-content p {
+            line-height: 1.6;
+        }
+        .input{
+            height: 40px;
+            border-radius: 3px;
+            margin-top: 10px;
+            padding: 0px 10px;
+            width: 100%;
+        }
+        #job_adding{
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <div class="sidebar">
+        
+        <h2>Admin Panel</h2>
+        <ul>
+        <li><a href="#" data-page="dashboard">Dashboard</a></li>
+        <li><a href="#" data-page="AddJob">Add new job</a></li>
+        <li><a href="#" data-page="Delete">Delete Job</a></li>
+        <li><a href="#" data-page="orders">Orders</a></li>
+        <li><a href="#" data-page="settings">Settings</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+        </div>
+    <div class="content">
+        <div class="dashboard-header">
+            <h1>Welcome to the Jobs Lelo Bhai Admin Dashboard</h1>
+        </div>
+        <div class="dashboard-content" id="dashboard-content">
+        </div>
+        <div id="job_adding">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dashboardContent = document.getElementById('dashboard-content');
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+            function loadPage(page) {
+                if (page === 'AddJob') {
+                    fetch('/add_jobs')
+                        .then(response => response.text())
+                        .then(html => dashboardContent.innerHTML = html);
+                } else if (page === 'Delete') {
+                    fetch('/delete_jobs')
+                        .then(response => response.text())
+                        .then(html => {
+                            dashboardContent.innerHTML = html;
+                            // Add event listeners after the content is loaded
+                            addDeleteListeners();
+                        });
+                } else if (page === 'orders') {
+                    dashboardContent.innerHTML = '<h2>Order Tracking</h2><p>Track customer orders.</p>';
+                } else if (page === 'settings') {
+                    dashboardContent.innerHTML = '<h2>Settings</h2><p>Configure application settings.</p>';
+                } else {
+                    dashboardContent.innerHTML = '<h2>Dashboard Overview</h2><p>This dashboard can be used to create and post new jobs on Jobs Lelo Bhai website</p>';
+                }
+            }
+
+            function addDeleteListeners() {
+                const deleteButtons = document.querySelectorAll('.btn-danger');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const jobId = this.getAttribute('onclick').match(/deleteJob\((\d+)\)/)[1];
+                        deleteJob(jobId);
+                    });
+                });
+            }
+
+            function deleteJob(jobId) {
+                if (confirm("Are you sure you want to delete this job?")) {
+                    fetch(`/delete_jobs/${jobId}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (response.ok) {
+                                loadPage("Delete"); // Reload the delete jobs page.
+                            } else {
+                                alert("Failed to delete job.");
+                            }
+                        });
+                }
+            }
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    loadPage(page);
+                });
+            });
+
+            loadPage('dashboard');
+        });
+    </script>
+</body>
+</html>

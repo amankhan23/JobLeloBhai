@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <style>
+        /* Basic Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative; /* Needed for absolute positioning of button */
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        .contact-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            position: absolute; /* Absolute positioning */
+            right: 50px; /* Position from right */
+            top: 50%; /* Center vertically */
+            transform: translateY(-20%); /* Adjust for perfect vertical centering */
+        }
+
+        .contact-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <footer>
+        <p>&copy; 2025 Aman Khan and Company. All rights reserved.</p>
+        <p>Address: Bilaspur, Rampur, India</p>
+        <p>Email: amank80575@gmail.com</p>
+        <p>Phone: +91 9639985759</p>
+        <a href="mailto:amank80575@gmail.com?subject=Support%20Request&body=Please%20Aman%20help%20with%20....." class="contact-button">Contact Us</a>
+    </footer>
+
+</body>
+</html>
