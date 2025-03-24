@@ -3,7 +3,7 @@ from database import engine, load_jobs_from_db, add_job, load_job_from_db,load_j
 from sqlalchemy import text
 import os
 app = Flask(__name__)
-
+app.secret_key= "Amanwjde8yd4tfgccnwdf9u"
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
