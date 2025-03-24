@@ -1,10 +1,11 @@
 from flask import Flask, render_template, jsonify, abort, redirect, session, request, url_for
 from database import engine, load_jobs_from_db, add_job, load_job_from_db,load_job_from
-from sqlalchemy import text
+from sqlalchemy import text,create_engine
 import os
-
 app = Flask(__name__)
-app.secret_key = 'bsjdh8ury8430580wrh'  # Required for sessions
+app.secret_key = os.environ.get("DB_connection")
+engine = create_engine(app.secret_key)
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
